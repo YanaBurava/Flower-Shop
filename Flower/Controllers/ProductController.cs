@@ -16,8 +16,7 @@ namespace Flower.Controllers
 {
     [Authorize(Roles = FC.Admin)]
     public class ProductController : Controller
-    {
-       
+    {       
         private readonly ApplicationDbContext _db;
         private readonly IWebHostEnvironment webHostEnvironment;
 
@@ -39,14 +38,6 @@ namespace Flower.Controllers
         //get-upsert
         public IActionResult Upsert(int? id)
         {
-            //IEnumerable<SelectListItem> CategoryDropDown = _db.Category.Select(i => new SelectListItem
-            //{
-            //    Text = i.Name,
-            //    Value = i.Id.ToString()
-
-            //});
-            //ViewBag.CategoryDropDown = CategoryDropDown;
-            //Product product = new Product();
             ProductViewModel productViewModel = new()
             {
                 Product = new Product(),
@@ -146,10 +137,8 @@ namespace Flower.Controllers
                 Value = i.Id.ToString()
 
             });
-            return View(productViewModel);
-           
+            return View(productViewModel);           
         }
-
      
         //get-delete
         public IActionResult Delete(int? id)

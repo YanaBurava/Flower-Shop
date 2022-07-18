@@ -116,7 +116,6 @@ namespace Flower.Controllers
                 productUserViewModel.ApplicationUser.PhoneNumber,
                 productListSB.ToString());
 
-
             await _emailSender.SendEmailAsync(FC.AdminEmail, subject, messageBody);
 
            

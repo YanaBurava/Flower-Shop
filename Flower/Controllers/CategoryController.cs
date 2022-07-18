@@ -42,8 +42,7 @@ namespace Flower.Controllers
                 _db.SaveChanges(); 
                 return RedirectToAction("Index");
             }
-            return View(obj);
-           
+            return View(obj);           
         }
 
         //get-edit
@@ -104,7 +103,7 @@ namespace Flower.Controllers
             }
              _db.Category.Remove(obj);
                 _db.SaveChanges();
-                return RedirectToAction("Index");         
+                return RedirectToAction("Index");        
           
         }
 

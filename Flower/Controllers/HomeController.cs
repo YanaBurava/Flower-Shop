@@ -22,7 +22,6 @@ namespace Flower.Controllers
         {
             _logger = logger;
             _db = db;
-
         }
 
         public IActionResult Index()
