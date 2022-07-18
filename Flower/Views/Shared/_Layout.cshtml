@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor 
+@using Flower.Utility
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,6 +9,8 @@
     <title>@ViewData["Title"] - Flower</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/fontawersome/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -16,19 +21,53 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                  <partial name="_LoginPartial" />
+                  <ul class="navbar-nav flex-grow-1">
+
+                      <li class="nav-item">
+                          <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+
+                      </li>
+
+                      @if (User.IsInRole(FC.Admin))
+                      {
+                          <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  Content
+                              </a>
+                              <div class="dropdown-menu"  aria-labelledby="navbarDropdown">
+                                  <a class="nav-link text-dark" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
+                                  <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Product</a>
+                                  <a class="nav-link text-dark" asp-area="" asp-controller="Table" asp-action="Index">Table</a>
+                                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+
+                                  <div class="dropdown-divider"></div>
+                                  <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Create Admin</a>
+
+                              </div>
+                          </li>
+                      }
+                          <li>
+                              @if (HttpContextAccessor.HttpContext.Session.Get<List<ShopingCart>>(FC.SessionCart) != null)
+                              {
+                                  <a asp-action="Index" asp-controller="Cart" class="nav-link">
+                                      @{ var count = HttpContextAccessor.HttpContext.Session.Get<List<ShopingCart>>(FC.SessionCart).Count;}
+                                      <i class="fas fa-shopping-cart"></i> &nbsp; (@count)
+                                  </a>
+                              }
+                              else
+                              {
+                                  <a href="#" class="nav-link">
+                                      <i class="fas fa-shopping-cart"></i> &nbsp; (0)
+                                  </a>
+                              }
+                          </li>
+                      </ul>
                 </div>
             </div>
         </nav>
-    </header>
+    </header
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -43,6 +82,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
