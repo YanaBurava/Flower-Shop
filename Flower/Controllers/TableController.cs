@@ -12,15 +12,15 @@ namespace Flower.Controllers
     [Authorize(Roles = FC.Admin)]
     public class TableController : Controller
     {
-        private readonly ApplicationDbContext db;
+        private readonly ApplicationDbContext _db;
 
         public TableController(ApplicationDbContext db)
         {
-            this.db = db;
+            _db = db;
         }
         public IActionResult Index()
         {
-            IEnumerable<Table> objList = db.Table;
+            IEnumerable<Table> objList = _db.Table;
             return View(objList);
         }
         //get-create
@@ -34,8 +34,8 @@ namespace Flower.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Table obj)
         {
-            db.Table.Add(obj);
-            db.SaveChanges();
+            _db.Table.Add(obj);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
         //get-edit
@@ -45,7 +45,7 @@ namespace Flower.Controllers
             {
                 return NotFound();
             }
-            var obj = db.Table.Find(id);
+            var obj = _db.Table.Find(id);
             if (obj == null)
             {
                 return NotFound();
@@ -61,12 +61,11 @@ namespace Flower.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Table.Update(obj);
-                db.SaveChanges();
+                _db.Table.Update(obj);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(obj);
-
         }
 
         //get-delete
@@ -76,7 +75,7 @@ namespace Flower.Controllers
             {
                 return NotFound();
             }
-            var obj = db.Table.Find(id);
+            var obj = _db.Table.Find(id);
             if (obj == null)
             {
                 return NotFound();
@@ -89,15 +88,14 @@ namespace Flower.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
-            var obj = db.Table.Find(id);
+            var obj = _db.Table.Find(id);
             if (obj == null)
             {
                 return NotFound();
             }
-            db.Table.Remove(obj);
-            db.SaveChanges();
+            _db.Table.Remove(obj);
+            _db.SaveChanges();
             return RedirectToAction("Index");
-
         }
 
     }

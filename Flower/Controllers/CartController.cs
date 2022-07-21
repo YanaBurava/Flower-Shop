@@ -60,8 +60,7 @@ namespace Flower.Controllers
         [ValidateAntiForgeryToken]
         [ActionName("Index")]
         public IActionResult IndexPost()
-        {
-          
+        {          
             return RedirectToAction(nameof(Summary));
         }
 
@@ -117,17 +116,14 @@ namespace Flower.Controllers
                 productListSB.ToString());
 
             await _emailSender.SendEmailAsync(FC.AdminEmail, subject, messageBody);
-
-           
+                      
             return RedirectToAction(nameof(InquiryConfirm));
         }
 
         public IActionResult InquiryConfirm()
         {
-
             HttpContext.Session.Clear();
             return View();
         }
-    }
-    
+    }    
 }

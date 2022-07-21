@@ -51,7 +51,6 @@ namespace Flower.Controllers
                 {
                     Text = i.Name,
                     Value = i.Id.ToString()
-
                 })
             };
 
@@ -135,7 +134,6 @@ namespace Flower.Controllers
             {
                 Text = i.Name,
                 Value = i.Id.ToString()
-
             });
             return View(productViewModel);           
         }

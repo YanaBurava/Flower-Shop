@@ -42,7 +42,7 @@ namespace Flower.Controllers
             {
                 shopingCartList = HttpContext.Session.Get<List<ShopingCart>>(FC.SessionCart);
             }
-            DetailsVM detailsVM = new DetailsVM()
+            DetailsViewModel detailsVM = new DetailsViewModel()
             {
                 Product = _db.Product.Include(u => u.Category).Include(u => u.Table).Where(u => u.Id == id).FirstOrDefault(),
                 ExistsInCart = false
@@ -88,7 +88,6 @@ namespace Flower.Controllers
             HttpContext.Session.Set(FC.SessionCart, shopingCartList);
             return RedirectToAction(nameof(Index));
         }
-
 
         public IActionResult Privacy()
         {

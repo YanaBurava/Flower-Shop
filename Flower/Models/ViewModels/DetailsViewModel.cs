@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Flower.Models.ViewModels
 {
-    public class DetailsVM
+    public class DetailsViewModel
     {
-        public DetailsVM()
+        public DetailsViewModel()
         {
             Product = new Product();
         }
